@@ -1,0 +1,10 @@
+/*
+  Esta é a regra mais importante para o nosso layout.
+  O componente MainLayout.jsx renderiza uma tag <main> que envolve todo o conteúdo da página.
+  Esta regra adiciona um espaçamento no topo do <main>, com a altura exata do nosso header,
+  empurrando todo o conteúdo da página para baixo.
+  Isso garante que nada fique escondido atrás do header.
+*/
+main {
+  padding-top: 73px; /* Altura aproximada do nosso .main-header */
+}

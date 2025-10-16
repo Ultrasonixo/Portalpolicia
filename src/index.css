@@ -1,0 +1,29 @@
+/*
+  Este é o nosso CSS global limpo.
+  Ele remove todas as margens e paddings padrão do navegador
+  e define a fonte e a cor de fundo base para o projeto.
+*/
+
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f4f7fc; /* Cor de fundo base para o site (cinza claro) */
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/*
+  A regra que limitava a largura (max-width) e a animação que fazia a logo girar
+  foram REMOVIDAS daqui.
+*/

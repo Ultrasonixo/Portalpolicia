@@ -1,0 +1,71 @@
+/* --- ESTILOS BASE (DESKTOP) --- */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 2rem;
+    background-color: #ffffff; /* Azul sólido */
+    color: rgb(46, 46, 46);
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
+}
+
+/* NOVO ESTILO PARA A ESQUERDA DO HEADER */
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 2rem; /* Espaço entre os logos */
+}
+
+.logo-sp-container {
+    padding-right: 2rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logo-sp {
+    height: 40px; /* Tamanho do logo SP */
+}
+
+/* Estilos antigos que continuam válidos */
+.logo-container { display: flex; align-items: center; text-decoration: none; color: #373939; }
+.logo { height: 45px; margin-right: 15px; }
+.logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.logo-text span { font-size: 1.5rem; font-weight: 700; }
+.logo-text small { font-size: 0.8rem; font-weight: 400; opacity: 0.9; }
+
+.main-nav-desktop { display: flex; gap: 1rem; }
+.main-nav-desktop a { color: #373939; text-decoration: none; font-weight: 500; padding: 10px 20px; border-radius: 8px; display: flex; align-items: center; gap: 8px; transition: background-color 0.3s, color 0.3s; }
+.main-nav-desktop a:hover { background-color: rgba(255, 255, 255, 0.1); color: #002222; }
+.main-nav-desktop a.active { background-color: rgba(0, 0, 0, 0.25); color: #373939; font-weight: 600; }
+
+.user-actions { display: flex; align-items: center; }
+.user-info { display: flex; align-items: center; gap: 1.5rem; }
+.user-details { text-align: right; line-height: 1.2; }
+.user-name { display: block; font-weight: 700; }
+.user-role { display: block; font-size: 0.85rem; text-transform: capitalize; opacity: 0.8; }
+.logout-button { background: rgba(255, 0, 0, 0.1); border: 1px solid rgba(216, 0, 0, 0.3); color: rgb(156, 0, 0); padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 500; transition: background-color 0.3s; display: flex; align-items: center; gap: 8px; }
+.logout-button:hover { background: rgba(255, 255, 255, 0.2); }
+.btn-login { background-color: #ffffff; color: #1a237e; padding: 10px 25px; border-radius: 5px; text-decoration: none; font-weight: 700; transition: background-color 0.3s; }
+.btn-login:hover { background-color: #e4e4e4; }
+
+/* --- ESTILOS MOBILE --- */
+.mobile-menu-toggle, .main-nav-mobile { display: none; }
+
+@media (max-width: 1200px) { /* Ajuste para telas um pouco menores */
+    .header-left { gap: 1rem; }
+    .logo-sp-container { padding-right: 1rem; }
+    .main-nav-desktop { gap: 0.5rem; }
+}
+
+@media (max-width: 992px) {
+    .main-header { padding: 1rem; }
+    .main-nav-desktop, .user-actions { display: none; }
+    .mobile-menu-toggle { display: block; background: none; border: none; color: white; font-size: 1.8rem; cursor: pointer; z-index: 1002; margin-left: auto; }
+    .header-left { gap: 1rem; }
+    .logo-sp-container { display: none; } /* Esconde o logo de SP em telas pequenas */
+    
+    .main-nav-mobile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: rgba(26, 35, 126, 0.98); backdrop-filter: blur(5px); z-index: 1001; }
+    .main-nav-mobile a { color: white; text-decoration: none; font-size: 1.5rem; font-weight: 500; padding: 10px 20px; border-radius: 8px; }
+    .main-nav-mobile a.active { background-color: rgba(0, 0, 0, 0.25); }
+}
