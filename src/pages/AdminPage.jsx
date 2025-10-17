@@ -1,7 +1,7 @@
+// src/pages/AdminPage.jsx
 import React, { useState, useEffect } from 'react';
 import '../components/AdminPage.css';
 
-// Botão de Ação (componente interno)
 const ActionButton = ({ onClick, text, icon, type }) => (
     <button onClick={onClick} className={`action-btn ${type}`}>
         <i className={`fas ${icon}`}></i> {text}
@@ -12,50 +12,73 @@ const AdminPage = () => {
     const [recrutas, setRecrutas] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    // DADOS DE EXEMPLO (no futuro, virão da API GET /api/admin/policiais?status=Em Análise)
-    useEffect(() => {
-        const fakeRecrutas = [
-            { id: 1, nome_completo: 'Carlos Silva', passaporte: '12345', discord_id: 'carlos#123' },
-            { id: 2, nome_completo: 'Ana Pereira', passaporte: '54321', discord_id: 'ana#321' },
-        ];
-        setRecrutas(fakeRecrutas);
-        setLoading(false);
-    }, []);
-
-    const handleAprovar = (id) => {
-        // Lógica para chamar a API: PUT /api/admin/policiais/:id/aprovar
-        console.log(`Aprovar recruta com ID: ${id}`);
-        setRecrutas(recrutas.filter(r => r.id !== id)); // Remove da lista (simulação)
+    const fetchRecrutas = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch('http://localhost:3000/api/admin/recrutas');
+            const data = await response.json();
+            if (response.ok) setRecrutas(data);
+        } catch (error) {
+            console.error("Falha ao buscar recrutas:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
-    const handleReprovar = (id) => {
-        // Lógica para chamar a API e alterar status para 'Reprovado'
-        console.log(`Reprovar recruta com ID: ${id}`);
-        setRecrutas(recrutas.filter(r => r.id !== id)); // Remove da lista (simulação)
+    useEffect(() => {
+        fetchRecrutas();
+    }, []);
+
+    const handleAprovar = async (id) => {
+        const patente = prompt("Digite a patente inicial do recruta:");
+        const guarnicao = prompt("Digite a guarnição inicial:");
+
+        if (!patente || !guarnicao) {
+            alert("Patente e guarnição são obrigatórias para aprovar.");
+            return;
+        }
+
+        try {
+            await fetch(`http://localhost:3000/api/admin/recrutas/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ novoStatus: 'Aprovado', patente, guarnicao }),
+            });
+            fetchRecrutas(); // Atualiza a lista
+        } catch (error) {
+            console.error("Falha ao aprovar recruta:", error);
+        }
+    };
+
+    const handleReprovar = async (id) => {
+        if (!window.confirm("Tem certeza que deseja reprovar este recruta?")) return;
+
+        try {
+            await fetch(`http://localhost:3000/api/admin/recrutas/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ novoStatus: 'Reprovado' }),
+            });
+            fetchRecrutas(); // Atualiza a lista
+        } catch (error) {
+            console.error("Falha ao reprovar recruta:", error);
+        }
     };
 
     return (
         <div className="page-container">
             <h1 className="page-title">Administração de Recrutas</h1>
             <p className="page-subtitle">Aprove ou reprove os novos alistamentos pendentes.</p>
-
             <div className="admin-table-widget">
                 <div className="widget-title">Recrutas em Análise</div>
                 <div className="table-responsive">
                     <table className="recrutas-table">
                         <thead>
-                            <tr>
-                                <th>Nome Completo</th>
-                                <th>Passaporte</th>
-                                <th>Discord ID</th>
-                                <th>Ações</th>
-                            </tr>
+                            <tr><th>Nome Completo</th><th>Passaporte</th><th>Discord ID</th><th>Ações</th></tr>
                         </thead>
                         <tbody>
                             {loading && <tr><td colSpan="4">Carregando...</td></tr>}
-                            {!loading && recrutas.length === 0 && (
-                                <tr><td colSpan="4">Nenhum recruta pendente.</td></tr>
-                            )}
+                            {!loading && recrutas.length === 0 && (<tr><td colSpan="4">Nenhum recruta pendente.</td></tr>)}
                             {recrutas.map(recruta => (
                                 <tr key={recruta.id}>
                                     <td>{recruta.nome_completo}</td>
@@ -74,5 +97,4 @@ const AdminPage = () => {
         </div>
     );
 };
-
 export default AdminPage;

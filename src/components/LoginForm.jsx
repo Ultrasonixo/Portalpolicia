@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
-import './Form.css'; // O caminho para o CSS agora está correto
+import './Form.css';
 
 function LoginForm() {
     const [id_passaporte, setIdPassaporte] = useState('');
@@ -27,10 +27,8 @@ function LoginForm() {
             const result = await response.json();
             if (!response.ok) throw new Error(result.message);
 
-            // Informa ao contexto que o tipo de usuário é 'civil'
             login(result.usuario, 'civil');
             
-            // Redireciona de volta para a página que o usuário queria acessar
             navigate(from, { replace: true });
 
         } catch (error) {
@@ -47,31 +45,15 @@ function LoginForm() {
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
                         <label htmlFor="id_passaporte">ID / Passaporte</label>
-                        <input
-                            type="text"
-                            id="id_passaporte"
-                            value={id_passaporte}
-                            onChange={(e) => setIdPassaporte(e.target.value)}
-                            required
-                        />
+                        <input type="text" id="id_passaporte" value={id_passaporte} onChange={(e) => setIdPassaporte(e.target.value)} required />
                     </div>
                     <div className="input-group">
                         <label htmlFor="senha">Senha</label>
-                        <input
-                            type="password"
-                            id="senha"
-                            value={senha}
-                            onChange={(e) => setSenha(e.target.value)}
-                            required
-                        />
+                        <input type="password" id="senha" value={senha} onChange={(e) => setSenha(e.target.value)} required />
                     </div>
                     <button type="submit">Entrar</button>
                 </form>
-                {statusMessage.text && (
-                    <div className={`status-message status-${statusMessage.type}`}>
-                        {statusMessage.text}
-                    </div>
-                )}
+                {statusMessage.text && ( <div className={`status-message status-${statusMessage.type}`}>{statusMessage.text}</div> )}
                 <p className="form-footer">Não tem uma conta? <Link to="/register">Crie uma agora</Link></p>
             </div>
         </section>

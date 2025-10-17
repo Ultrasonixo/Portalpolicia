@@ -69,3 +69,15 @@
     .main-nav-mobile a { color: white; text-decoration: none; font-size: 1.5rem; font-weight: 500; padding: 10px 20px; border-radius: 8px; }
     .main-nav-mobile a.active { background-color: rgba(0, 0, 0, 0.25); }
 }
+
+.main-nav-desktop a.dashboard-link {
+    background-color: #e8ecff;
+    color: #4a6cf7;
+    font-weight: 600;
+}
+
+.main-nav-desktop a.dashboard-link:hover,
+.main-nav-desktop a.dashboard-link.active {
+    background-color: #4a6cf7;
+    color: white;
+}
