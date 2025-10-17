@@ -1,0 +1,148 @@
+.auth-container {
+  display: flex;
+  width: 100%;
+  /* CORREÇÃO DO VÃO: */
+  /* Calculamos a altura da tela (100vh) MENOS a altura aproximada do seu header (70px) */
+  /* Isso faz com que o container comece exatamente abaixo do header. */
+  min-height: calc(100vh - 70px); 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* PAINEL ESQUERDO COM A IMAGEM */
+.auth-left-panel {
+  flex: 0 0 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  text-align: center;
+  position: relative; /* Necessário para o overlay */
+
+  /* CORREÇÃO DA IMAGEM: */
+  background-image: url('https://images.unsplash.com/photo-1599690949444-934333a14238?q=80&w=1935&auto=format&fit=crop'); /* <-- COLOQUE A URL DA SUA IMAGEM AQUI */
+  background-size: cover;
+  background-position: center;
+}
+
+/* Overlay escuro para garantir a legibilidade do texto sobre a imagem */
+.auth-left-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Overlay preto com 50% de opacidade */
+  z-index: 1;
+}
+
+.auth-left-panel h1, .auth-left-panel p {
+  position: relative; /* Coloca o texto acima do overlay */
+  z-index: 2;
+  color: white; /* Cor branca para contrastar com o fundo escuro */
+}
+
+.auth-left-panel h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.auth-left-panel p {
+  font-size: 1.1rem;
+  max-width: 450px;
+  opacity: 0.9;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* PAINEL DIREITO (FORMULÁRIO) */
+.auth-right-panel {
+  flex: 1;
+  background-color: #f8f9fa; /* Fundo um pouco mais suave */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-form-container {
+  width: 100%;
+  max-width: 420px;
+  padding: 48px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* O resto do CSS continua igual... */
+
+.form-header h2 {
+  font-size: 1.75rem;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.auth-subtitle {
+  color: #6c757d;
+  margin-bottom: 32px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #343a40;
+  font-size: 0.9rem;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.auth-button {
+  width: 100%;
+  padding: 14px;
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.auth-redirect-link {
+  margin-top: 24px;
+  text-align: center;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.auth-redirect-link a {
+  color: #0d6efd;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.error-message {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c2c7;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+}

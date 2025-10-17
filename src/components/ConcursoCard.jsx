@@ -1,29 +1,56 @@
+// src/components/ConcursoCard.jsx
+
 import React from 'react';
 import './ConcursoCard.css';
 
-function ConcursoCard({ concurso }) {
+const ConcursoCard = ({ concurso }) => {
+    // 1. ADICIONADO 'descricao' à lista de propriedades
+    const { titulo, vagas, data_encerramento, status, link_edital, valor, descricao } = concurso;
+
+    const isEncerrado = status === 'Encerrado';
+
     const formatarData = (data) => {
-        if (!data) return 'N/A';
+        if (!data) return 'Não definida';
         const dataObj = new Date(data);
-        return new Intl.DateTimeFormat('pt-BR', { timeZone: 'UTC' }).format(dataObj);
+        dataObj.setMinutes(dataObj.getMinutes() + dataObj.getTimezoneOffset());
+        return dataObj.toLocaleDateString('pt-BR');
     };
 
     return (
         <div className="concurso-card">
-            <div className={`status-tag status-${concurso.status.toLowerCase().replace(' ', '-')}`}>
-                {concurso.status}
+            <div className="card-header">
+                <h3>{titulo}</h3>
+                <span className={`status-tag status-${status.toLowerCase()}`}>
+                    {status}
+                </span>
             </div>
-            <h3 className="card-titulo">{concurso.titulo}</h3>
-            <div className="card-info">
-                <span><i className="fas fa-users"></i> {concurso.vagas} Vagas</span>
-                <span><i className="fas fa-calendar-times"></i> Encerra em: {formatarData(concurso.data_encerramento)}</span>
+            
+            <div className="card-body">
+                {/* 2. ADICIONADO: Parágrafo para exibir a descrição */}
+                <p className="card-description">{descricao}</p>
+
+                <div className="info-row">
+                    <span><i className="fas fa-briefcase"></i> {vagas} Vagas</span>
+                    <span><i className="fas fa-calendar-times"></i> Encerra em: {formatarData(data_encerramento)}</span>
+                </div>
+                {valor && (
+                    <div className="valor-row">
+                        <span>{valor}</span>
+                    </div>
+                )}
             </div>
-            <p className="card-descricao">{concurso.descricao.substring(0, 150)}...</p>
-            <a href={concurso.link_edital} target="_blank" rel="noopener noreferrer" className="btn-edital">
-                Acessar Edital <i className="fas fa-arrow-right"></i>
-            </a>
+
+            <div className="card-footer">
+                <button
+                    onClick={() => window.open(link_edital, '_blank')}
+                    className="btn-acessar-edital"
+                    disabled={isEncerrado}
+                >
+                    {isEncerrado ? 'Concurso Encerrado' : 'Acessar Edital →'}
+                </button>
+            </div>
         </div>
     );
-}
+};
 
 export default ConcursoCard;

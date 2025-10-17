@@ -33,6 +33,16 @@ function Footer() {
             </div>
           </div>
 
+        <div className="footer-links">
+            <h3><i className="fas fa-link"></i> Acesso Rápido</h3>
+            <ul>
+              <li><Link to="/loginPolicial">Sistema Policial.</Link></li>
+              <li><Link to="/denunciar">Denúncia Anônima</Link></li>
+              <li><Link to="/concursos">Concursos Abertos</Link></li>
+              <li><Link to="/juridico">Portal Jurídico</Link></li>
+            </ul>
+          </div>
+
           <div className="footer-links">
             <h3><i className="fas fa-link"></i> Acesso Rápido</h3>
             <ul>
@@ -64,7 +74,7 @@ function Footer() {
         </div>
 
         <div className="footer-bottom">
-          <p><span className="online-indicator"></span> © {currentYear} Polícia RP. Todos os direitos reservados.</p>
+          <p><span className="online-indicator"></span> © {currentYear} Consolação Paulista Roleplay. Todos os direitos reservados.</p>
         </div>
       </div>
     </footer>

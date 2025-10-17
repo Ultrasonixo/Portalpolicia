@@ -9,7 +9,10 @@ import HomePage from './pages/HomePage.jsx';
 import BoletimPage from './pages/BoletimPage.jsx';
 import RegisterPage from './pages/RegisterPage.jsx';
 import LoginPage from './pages/LoginPage.jsx';
-import ConcursosPage from './pages/ConcursosPage.jsx'; // <-- PÁGINA NOVA
+import LoginPolicial from './pages/LoginPolicial.jsx';
+import RegistroPolicial from './pages/RegisterPolicial.jsx';
+import ConcursosPage from './pages/ConcursosPage.jsx';
+import JuridicoPage from './pages/Portaljuridico.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 import './App.css';
@@ -22,7 +25,10 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/concursos" element={<ConcursosPage />} /> {/* <-- ROTA NOVA */}
+        <Route path="/juridico" element={<JuridicoPage />} /> 
+        <Route path="/concursos" element={<ConcursosPage />} />
+        <Route path="/loginPolicial" element={<LoginPolicial />} />
+        <Route path="/registroPolicial" element={<RegistroPolicial />} />
         
         <Route 
           path="/boletim" 
@@ -37,5 +43,7 @@ function App() {
     </Routes>
   );
 }
+
+
 
 export default App;
