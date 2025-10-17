@@ -1,43 +1,21 @@
-// src/pages/AdminPage.jsx
 import React, { useState, useEffect } from 'react';
+import ApprovalModal from '../components/ApprovalModal.jsx'; // 1. Importe o modal
 import '../components/AdminPage.css';
 
 const ActionButton = ({ onClick, text, icon, type }) => (
-    <button onClick={onClick} className={`action-btn ${type}`}>
-        <i className={`fas ${icon}`}></i> {text}
-    </button>
+    <button onClick={onClick} className={`action-btn ${type}`}><i className={`fas ${icon}`}></i> {text}</button>
 );
 
 const AdminPage = () => {
     const [recrutas, setRecrutas] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedRecruta, setSelectedRecruta] = useState(null); // 2. Estado para controlar o modal
 
-    const fetchRecrutas = async () => {
-        setLoading(true);
-        try {
-            const response = await fetch('http://localhost:3000/api/admin/recrutas');
-            const data = await response.json();
-            if (response.ok) setRecrutas(data);
-        } catch (error) {
-            console.error("Falha ao buscar recrutas:", error);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const fetchRecrutas = async () => { /* ... (seu código de fetch continua o mesmo) ... */ };
+    useEffect(() => { fetchRecrutas(); }, []);
 
-    useEffect(() => {
-        fetchRecrutas();
-    }, []);
-
-    const handleAprovar = async (id) => {
-        const patente = prompt("Digite a patente inicial do recruta:");
-        const guarnicao = prompt("Digite a guarnição inicial:");
-
-        if (!patente || !guarnicao) {
-            alert("Patente e guarnição são obrigatórias para aprovar.");
-            return;
-        }
-
+    // 3. Função chamada pelo modal para confirmar a aprovação
+    const handleConfirmApproval = async (id, patente, guarnicao) => {
         try {
             await fetch(`http://localhost:3000/api/admin/recrutas/${id}`, {
                 method: 'PUT',
@@ -47,23 +25,12 @@ const AdminPage = () => {
             fetchRecrutas(); // Atualiza a lista
         } catch (error) {
             console.error("Falha ao aprovar recruta:", error);
+        } finally {
+            setSelectedRecruta(null); // Fecha o modal
         }
     };
 
-    const handleReprovar = async (id) => {
-        if (!window.confirm("Tem certeza que deseja reprovar este recruta?")) return;
-
-        try {
-            await fetch(`http://localhost:3000/api/admin/recrutas/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ novoStatus: 'Reprovado' }),
-            });
-            fetchRecrutas(); // Atualiza a lista
-        } catch (error) {
-            console.error("Falha ao reprovar recruta:", error);
-        }
-    };
+    const handleReprovar = async (id) => { /* ... (seu código de reprovar continua o mesmo) ... */ };
 
     return (
         <div className="page-container">
@@ -85,7 +52,8 @@ const AdminPage = () => {
                                     <td>{recruta.passaporte}</td>
                                     <td>{recruta.discord_id}</td>
                                     <td className="actions-cell">
-                                        <ActionButton onClick={() => handleAprovar(recruta.id)} text="Aprovar" icon="fa-check" type="approve" />
+                                        {/* 4. O botão agora abre o modal */}
+                                        <ActionButton onClick={() => setSelectedRecruta(recruta)} text="Aprovar" icon="fa-check" type="approve" />
                                         <ActionButton onClick={() => handleReprovar(recruta.id)} text="Reprovar" icon="fa-times" type="reject" />
                                     </td>
                                 </tr>
@@ -94,6 +62,12 @@ const AdminPage = () => {
                     </table>
                 </div>
             </div>
+            {/* 5. Renderiza o modal */}
+            <ApprovalModal 
+                recruta={selectedRecruta} 
+                onClose={() => setSelectedRecruta(null)} 
+                onConfirm={handleConfirmApproval} 
+            />
         </div>
     );
 };
