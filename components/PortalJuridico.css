@@ -1,0 +1,33 @@
+/* components/PortalJuridico/PortalJuridico.css */
+.portal-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.portal-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.portal-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.portal-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0px 4px 20px rgba(0,0,0,0.1);
+  padding: 20px;
+  width: 250px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.portal-card:hover {
+  transform: translateY(-5px);
+}

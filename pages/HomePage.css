@@ -1,0 +1,39 @@
+.hero-section {
+    position: relative;
+    /* Removemos o padding-top daqui, pois o App.css já cuida disso */
+    margin-top: -73px; /* Puxa a seção para cima para preencher o espaço do padding */
+    height: 70vh;
+    min-height: 550px;
+    width: 100%;
+    background-image: url('/background-policia.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #373939;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+}
+
+.hero-content { position: relative; z-index: 10; max-width: 800px; padding: 20px; }
+.hero-content h1 { font-size: 4rem; font-weight: 700; margin: 0; }
+.hero-content h2 { font-size: 1.5rem; font-weight: 400; margin-bottom: 1rem; opacity: 0.9; }
+.hero-content p { font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9; }
+
+.hero-buttons { display: flex; justify-content: center; gap: 1rem; }
+.hero-buttons .btn { padding: 12px 30px; border-radius: 5px; text-decoration: none; font-weight: 700; transition: all 0.3s ease; display: flex; align-items: center; gap: 8px; }
+.btn-denunciar { background-color: #f1c40f; color: #1a237e; }
+.btn-denunciar:hover { background-color: #ffde59; transform: translateY(-2px); }
+.btn-registrar { background-color: transparent; border: 2px solid white; color: #373939; }
+.btn-registrar:hover { background-color: white; color: #1a237e; transform: translateY(-2px); }
+
+
+@media (max-width: 768px) {
+    .hero-section { height: auto; min-height: 500px; padding-bottom: 80px; }
+    .hero-content h1 { font-size: 2.5rem; }
+    .hero-content h2 { font-size: 1.2rem; }
+    .hero-content p { font-size: 1rem; }
+    .hero-buttons { flex-direction: column; align-items: center; }
+    .hero-buttons .btn { width: 80%; justify-content: center; }
+}
