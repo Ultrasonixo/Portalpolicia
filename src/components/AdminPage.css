@@ -1,0 +1,14 @@
+.admin-table-widget { background-color: #fff; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; }
+.widget-title { font-size: 1.2rem; margin: 0; padding: 20px 25px; color: #1e293b; border-bottom: 1px solid #e2e8f0; }
+.table-responsive { width: 100%; overflow-x: auto; }
+.recrutas-table { width: 100%; border-collapse: collapse; }
+.recrutas-table th, .recrutas-table td { padding: 15px 25px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+.recrutas-table thead { background-color: #f8fafc; }
+.recrutas-table th { color: #64748b; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.recrutas-table tbody tr:last-child td { border-bottom: none; }
+.recrutas-table tbody tr:hover { background-color: #f8fafc; }
+.actions-cell { display: flex; gap: 10px; }
+.action-btn { border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: 500; display: flex; align-items: center; gap: 5px; transition: opacity 0.2s; }
+.action-btn:hover { opacity: 0.8; }
+.action-btn.approve { background-color: #198754; color: white; }
+.action-btn.reject { background-color: #dc3545; color: white; }

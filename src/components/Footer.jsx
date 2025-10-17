@@ -36,7 +36,7 @@ function Footer() {
         <div className="footer-links">
             <h3><i className="fas fa-link"></i> Acesso Rápido</h3>
             <ul>
-              <li><Link to="/loginPolicial">Sistema Policial.</Link></li>
+              <li><Link to="/policia/login">Sistema Policial.</Link></li>
               <li><Link to="/denunciar">Denúncia Anônima</Link></li>
               <li><Link to="/concursos">Concursos Abertos</Link></li>
               <li><Link to="/juridico">Portal Jurídico</Link></li>

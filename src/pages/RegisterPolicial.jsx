@@ -41,7 +41,7 @@ const RegisterPolicial = () => {
       }
 
       setSuccess(data.message + ' Você será redirecionado para o login.');
-      setTimeout(() => navigate('/loginPolicial'), 3000);
+      setTimeout(() => navigate('/policia/login'), 3000);
 
     } catch (err) {
       setError(err.message);
@@ -71,7 +71,7 @@ const RegisterPolicial = () => {
         </button>
 
         <p className="auth-redirect-link">
-          Já tem uma conta? <Link to="/loginPolicial">Faça o login</Link>
+          Já tem uma conta? <Link to="/policia/login">Faça o login</Link>
         </p>
       </form>
     </AuthLayout>

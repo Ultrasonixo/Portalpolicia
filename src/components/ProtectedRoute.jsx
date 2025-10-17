@@ -7,12 +7,12 @@ function ProtectedRoute({ children, requiredType }) {
     const location = useLocation();
 
     if (!user) {
-        const redirectTo = requiredType === 'policial' ? '/policia/login' : '/login';
+        const redirectTo = requiredType === 'policial' ? '/loginPolicial' : '/login';
         return <Navigate to={redirectTo} state={{ from: location }} replace />;
     }
 
-    if (user.type !== requiredType) {
-        return <Navigate to="/" state={{ from: location }} replace />;
+    if (requiredType && user.type !== requiredType) {
+        return <Navigate to="/" replace />;
     }
 
     return children;

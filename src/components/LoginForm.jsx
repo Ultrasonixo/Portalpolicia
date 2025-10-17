@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
-import './Form.css';
+import './Form.css'; // O caminho para o CSS agora está correto
 
 function LoginForm() {
-    // MUDANÇA 1: Voltamos a usar o estado 'id_passaporte'
     const [id_passaporte, setIdPassaporte] = useState('');
     const [senha, setSenha] = useState('');
     const [statusMessage, setStatusMessage] = useState({ type: '', text: '' });
@@ -19,7 +18,6 @@ function LoginForm() {
         setStatusMessage({ type: 'loading', text: 'Autenticando...' });
 
         try {
-            // MUDANÇA 2: Enviamos 'id_passaporte' no corpo da requisição
             const response = await fetch('http://localhost:3000/api/auth/login', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -29,7 +27,10 @@ function LoginForm() {
             const result = await response.json();
             if (!response.ok) throw new Error(result.message);
 
-            login(result.usuario);
+            // Informa ao contexto que o tipo de usuário é 'civil'
+            login(result.usuario, 'civil');
+            
+            // Redireciona de volta para a página que o usuário queria acessar
             navigate(from, { replace: true });
 
         } catch (error) {
@@ -45,13 +46,11 @@ function LoginForm() {
                 <p>Use suas credenciais para acessar o portal.</p>
                 <form onSubmit={handleSubmit}>
                     <div className="input-group">
-                        {/* MUDANÇA 3: Alteramos o label de volta para ID */}
                         <label htmlFor="id_passaporte">ID / Passaporte</label>
                         <input
                             type="text"
                             id="id_passaporte"
                             value={id_passaporte}
-                            // MUDANÇA 4: Atualizamos o onChange
                             onChange={(e) => setIdPassaporte(e.target.value)}
                             required
                         />

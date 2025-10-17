@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import AuthLayout from '../components/auth/AuthLayout';
-import InputField from '../components/auth/InputField';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext.jsx'; // Caminho corrigido
+import AuthLayout from '../components/auth/AuthLayout.jsx'; // Adicionado .jsx
+import InputField from '../components/auth/InputField.jsx'; // Adicionado .jsx
 
 const LoginPolicial = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [formData, setFormData] = useState({ passaporte: '', senha: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  // Lê a página que o usuário tentou acessar (útil para o dashboard)
+  const from = location.state?.from?.pathname || "/policia/dashboard";
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -31,15 +35,17 @@ const LoginPolicial = () => {
         throw new Error(data.message || 'Erro na autenticação.');
       }
 
-      login(data.policial);
-      navigate('/policia/dashboard'); // Redireciona para o dashboard policial
+      // A CORREÇÃO PRINCIPAL: Informamos ao contexto que o tipo é 'policial'
+      login(data.policial, 'policial');
+      
+      // Redireciona para o dashboard ou para a página que ele tentou acessar
+      navigate(from, { replace: true });
 
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-    
   };
 
   return (
@@ -71,6 +77,7 @@ const LoginPolicial = () => {
           {loading ? 'Verificando...' : 'Continuar'}
         </button>
 
+        {/* Corrigindo a rota para o registro policial */}
         <p className="auth-redirect-link">
           Não tem uma conta? <Link to="/registroPolicial">Crie uma aqui</Link>
         </p>

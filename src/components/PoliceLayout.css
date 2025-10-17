@@ -1,0 +1,15 @@
+:root {
+  --sidebar-bg: #1e293b; --main-bg: #f1f5f9; --sidebar-text: #cbd5e1;
+  --sidebar-hover-bg: #334155; --sidebar-active-bg: #0d6efd;
+}
+.police-dashboard-container { display: flex; min-height: 100vh; background-color: var(--main-bg); }
+.sidebar { width: 260px; background-color: var(--sidebar-bg); color: var(--sidebar-text); display: flex; flex-direction: column; flex-shrink: 0; }
+.sidebar-header { padding: 24px; text-align: center; border-bottom: 1px solid var(--sidebar-hover-bg); }
+.sidebar-header h3 { margin: 0; font-size: 1.5rem; color: white; }
+.sidebar-nav { display: flex; flex-direction: column; flex-grow: 1; padding: 15px 0; }
+.sidebar-nav a { color: var(--sidebar-text); text-decoration: none; padding: 15px 25px; display: flex; align-items: center; gap: 15px; transition: background-color 0.2s; border-left: 3px solid transparent; }
+.sidebar-nav a:hover { background-color: var(--sidebar-hover-bg); }
+.sidebar-nav a.active { background-color: var(--sidebar-hover-bg); color: white; font-weight: bold; border-left-color: var(--sidebar-active-bg); }
+.sidebar-footer { padding: 20px; }
+.logout-button-sidebar { width: 100%; padding: 12px; background-color: #dc3545; color: white; border: none; border-radius: 6px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 10px; font-weight: bold; }
+.main-content { flex-grow: 1; padding: 40px; overflow-y: auto; }
