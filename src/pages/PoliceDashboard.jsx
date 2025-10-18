@@ -1,8 +1,11 @@
+// src/pages/PoliceDashboard.jsx - VERSÃO FINAL COM ESTATÍSTICAS E ANÚNCIOS
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
-import '../components/PoliceDashboard.css';
+import '../components/PoliceDashboard.css'; // Certifique-se que o caminho está correto
 
+// Componente para os cards de estatísticas (seu código original)
 const StatCard = ({ title, value, icon, color, loading }) => (
     <div className={`stat-card ${loading ? 'loading' : ''}`} style={{ borderLeftColor: color }}>
         <div className="stat-info">
@@ -12,26 +15,48 @@ const StatCard = ({ title, value, icon, color, loading }) => (
         <div className="stat-icon" style={{ backgroundColor: color }}><i className={`fas ${icon}`}></i></div>
     </div>
 );
-const QuickActionButton = ({ to, icon, text }) => ( <Link to={to} className="quick-action-button"><i className={`fas ${icon}`}></i><span>{text}</span></Link> );
+
+// Componente para os botões de ação rápida (seu código original)
+const QuickActionButton = ({ to, icon, text }) => (
+    <Link to={to} className="quick-action-button">
+        <i className={`fas ${icon}`}></i>
+        <span>{text}</span>
+    </Link>
+);
 
 const PoliceDashboard = () => {
     const { user } = useAuth();
     const [stats, setStats] = useState({ totalBoletins: 0, boletinsAbertos: 0, policiaisAtivos: 0 });
+    // ✅ Estado para guardar os anúncios
+    const [anuncios, setAnuncios] = useState([]);
     const [loading, setLoading] = useState(true);
     
     useEffect(() => {
-        const fetchStats = async () => {
+        const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/policia/dashboard-stats');
-                const data = await response.json();
-                if (response.ok) setStats(data);
+                // ✅ Busca as estatísticas e os anúncios ao mesmo tempo
+                const [statsResponse, anunciosResponse] = await Promise.all([
+                    fetch('http://localhost:3000/api/policia/dashboard-stats'),
+                    fetch('http://localhost:3000/api/anuncios')
+                ]);
+
+                if (!statsResponse.ok || !anunciosResponse.ok) {
+                    throw new Error('Falha ao carregar os dados do painel.');
+                }
+
+                const statsData = await statsResponse.json();
+                const anunciosData = await anunciosResponse.json();
+
+                setStats(statsData);
+                setAnuncios(anunciosData);
+
             } catch (error) {
-                console.error("Falha ao buscar estatísticas:", error);
+                console.error("Erro ao buscar dados do dashboard:", error);
             } finally {
                 setLoading(false);
             }
         };
-        fetchStats();
+        fetchData();
     }, []);
 
     const statCardsData = [
@@ -40,14 +65,18 @@ const PoliceDashboard = () => {
         { title: 'Concluídos', value: stats.totalBoletins - stats.boletinsAbertos, icon: 'fa-check-circle', color: '#198754' },
         { title: 'Policiais Ativos', value: stats.policiaisAtivos, icon: 'fa-users', color: '#0dcaf0' }
     ];
+    
+    const formatarData = (data) => new Date(data).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
 
     return (
         <div className="page-container">
             <h1 className="page-title">Dashboard</h1>
             <p className="page-subtitle">Visão geral das operações e estatísticas, {user?.nome_completo}.</p>
+            
             <div className="stats-grid">
                 {statCardsData.map(stat => <StatCard key={stat.title} {...stat} loading={loading} />)}
             </div>
+            
             <div className="dashboard-columns">
                 <div className="column-left">
                     <div className="dashboard-widget">
@@ -60,10 +89,28 @@ const PoliceDashboard = () => {
                         </div>
                     </div>
                 </div>
+
+                {/* ✅ COLUNA DA DIREITA AGORA MOSTRA OS ANÚNCIOS */}
                 <div className="column-right">
                     <div className="dashboard-widget">
-                        <h3 className="widget-title">Boletins Recentes</h3>
-                        <p className="empty-state">Nenhum boletim registrado ainda.</p>
+                        <h3 className="widget-title">Anúncios Recentes</h3>
+                        {loading ? (
+                            <p>Carregando anúncios...</p>
+                        ) : anuncios.length > 0 ? (
+                            anuncios.map(anuncio => (
+                                <div key={anuncio.id} className="anuncio-card">
+                                    <div className="anuncio-header">
+                                        <h4>{anuncio.titulo}</h4>
+                                        <p className="anuncio-meta">
+                                            <p className="anuncio-conteudo">{anuncio.conteudo}</p>
+                                        </p>
+                                    </div>
+                                    Publicado por <strong>{anuncio.autor_nome || 'Administração'}</strong> em {formatarData(anuncio.data_publicacao)}
+                                </div>
+                            ))
+                        ) : (
+                            <p className="empty-state">Nenhum anúncio recente.</p>
+                        )}
                     </div>
                 </div>
             </div>

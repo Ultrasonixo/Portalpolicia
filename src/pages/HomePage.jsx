@@ -9,15 +9,12 @@ function HomePage() {
             <section className="hero-section">
                 <div className="hero-overlay"></div>
                 <div className="hero-content">
-                    <h1>Polícia RP</h1>
+                    <h1>Consolação Network</h1>
                     <h2>Portal Oficial</h2>
                     <p>Servindo e protegendo a comunidade com excelência, transparência e compromisso.</p>
                     <div className="hero-buttons">
-                        <Link to="/denunciar" className="btn btn-denunciar">
-                            <i className="fas fa-bullhorn"></i> Denunciar Crime
-                        </Link>
-                        <Link to="/boletim" className="btn btn-registrar">
-                            <i className="fas fa-file-alt"></i> Registrar B.O.
+                        <Link to="/boletim" className="btn btn-denunciar">
+                            <i className="fas fa-file-alt"></i> Denunciar Crime
                         </Link>
                     </div>
                 </div>

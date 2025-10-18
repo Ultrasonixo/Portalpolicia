@@ -8,12 +8,14 @@ const ApprovalModal = ({ recruta, onClose, onConfirm }) => {
     if (!recruta) return null;
 
     const handleConfirm = () => {
-        if (!patente || !guarnicao) {
-            alert('Por favor, selecione a patente e a guarnição.');
-            return;
-        }
-        onConfirm(recruta.id, patente, guarnicao);
-    };
+    console.log('Enviando para aprovação:', { id: recruta.id, patente, guarnicao });
+
+    if (!patente || !guarnicao) {
+        alert('Por favor, selecione a patente e a guarnição.');
+        return;
+    }
+    onConfirm(recruta.id, patente, guarnicao);
+};
 
     return (
         <div className="modal-overlay">

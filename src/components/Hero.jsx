@@ -5,7 +5,7 @@ import './Hero.css';
 function Hero() {
   return (
     <div className="hero-content">
-      <h1>Polícia RP</h1>
+      <h1>Secretaria Policia</h1>
       <h2>Portal Oficial</h2>
       <p>Servindo e protegendo a comunidade com excelência, transparência e compromisso.</p>
       <div className="hero-buttons">

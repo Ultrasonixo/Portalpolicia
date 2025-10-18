@@ -1,74 +1,72 @@
+// src/pages/AdminPage.jsx - VERSÃO HUB DE ADMINISTRAÇÃO
 import React, { useState, useEffect } from 'react';
-import ApprovalModal from '../components/ApprovalModal.jsx'; // 1. Importe o modal
+import { useAuth } from '../context/AuthContext';
+import ApprovalModal from '../components/ApprovalModal.jsx';
+// Futuramente, criaremos modais para cada ação
 import '../components/AdminPage.css';
 
-const ActionButton = ({ onClick, text, icon, type }) => (
-    <button onClick={onClick} className={`action-btn ${type}`}><i className={`fas ${icon}`}></i> {text}</button>
-);
+const ActionCard = ({ title, description, icon, permission, onClick }) => {
+    const { user } = useAuth();
+    const hasPermission = user?.permissoes?.[permission];
+    const cardContent = (
+        <div className={`action-card ${!hasPermission ? 'disabled' : ''}`}>
+            <div className="action-card-icon"><i className={`fas ${icon}`}></i></div>
+            <div className="action-card-info">
+                <h3>{title}</h3><p>{description}</p>
+            </div>
+        </div>
+    );
+    return hasPermission ? <div onClick={onClick} className="action-card-link" style={{cursor: 'pointer'}}>{cardContent}</div> : <div className="action-card-link">{cardContent}</div>;
+};
 
 const AdminPage = () => {
+    const { user } = useAuth();
     const [recrutas, setRecrutas] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [selectedRecruta, setSelectedRecruta] = useState(null); // 2. Estado para controlar o modal
+    const [selectedRecruta, setSelectedRecruta] = useState(null);
 
-    const fetchRecrutas = async () => { /* ... (seu código de fetch continua o mesmo) ... */ };
-    useEffect(() => { fetchRecrutas(); }, []);
+    const fetchRecrutas = async () => { /* ... seu código original aqui ... */ };
+    const handleConfirmApproval = async (id, patente, guarnicao) => { /* ... seu código original aqui ... */ };
+    const handleReprovar = async (id) => { /* ... seu código original aqui ... */ };
 
-    // 3. Função chamada pelo modal para confirmar a aprovação
-    const handleConfirmApproval = async (id, patente, guarnicao) => {
-        try {
-            await fetch(`http://localhost:3000/api/admin/recrutas/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ novoStatus: 'Aprovado', patente, guarnicao }),
-            });
-            fetchRecrutas(); // Atualiza a lista
-        } catch (error) {
-            console.error("Falha ao aprovar recruta:", error);
-        } finally {
-            setSelectedRecruta(null); // Fecha o modal
-        }
-    };
+    useEffect(() => {
+        if (user?.permissoes?.setador) {
+            fetchRecrutas();
+        } else { setLoading(false); }
+    }, [user]);
 
-    const handleReprovar = async (id) => { /* ... (seu código de reprovar continua o mesmo) ... */ };
+    if (!user?.permissoes?.is_rh) {
+        return (
+            <div className="page-container">
+                <h1 className="page-title">Acesso Negado</h1>
+                <p className="page-subtitle">Você não possui permissão para acessar esta área.</p>
+            </div>
+        );
+    }
 
     return (
         <div className="page-container">
-            <h1 className="page-title">Administração de Recrutas</h1>
-            <p className="page-subtitle">Aprove ou reprove os novos alistamentos pendentes.</p>
-            <div className="admin-table-widget">
-                <div className="widget-title">Recrutas em Análise</div>
-                <div className="table-responsive">
-                    <table className="recrutas-table">
-                        <thead>
-                            <tr><th>Nome Completo</th><th>Passaporte</th><th>Discord ID</th><th>Ações</th></tr>
-                        </thead>
-                        <tbody>
-                            {loading && <tr><td colSpan="4">Carregando...</td></tr>}
-                            {!loading && recrutas.length === 0 && (<tr><td colSpan="4">Nenhum recruta pendente.</td></tr>)}
-                            {recrutas.map(recruta => (
-                                <tr key={recruta.id}>
-                                    <td>{recruta.nome_completo}</td>
-                                    <td>{recruta.passaporte}</td>
-                                    <td>{recruta.discord_id}</td>
-                                    <td className="actions-cell">
-                                        {/* 4. O botão agora abre o modal */}
-                                        <ActionButton onClick={() => setSelectedRecruta(recruta)} text="Aprovar" icon="fa-check" type="approve" />
-                                        <ActionButton onClick={() => handleReprovar(recruta.id)} text="Reprovar" icon="fa-times" type="reject" />
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+            <h1 className="page-title">Painel de Administração (RH)</h1>
+            <p className="page-subtitle">Ferramentas de gerenciamento do departamento.</p>
+
+            <div className="admin-hub-grid">
+                <ActionCard title="Anunciar" description="Crie e publique anúncios." icon="fa-bullhorn" permission="anunciador" onClick={() => alert('Modal de Anúncios em breve!')} />
+                <ActionCard title="Gerenciar Carreira" description="Promova ou rebaixe um policial." icon="fa-user-cog" permission="setador" onClick={() => alert('Modal de Gerenciamento em breve!')} />
+                <ActionCard title="Demitir Policial" description="Remova o acesso de um policial." icon="fa-user-slash" permission="setador" onClick={() => alert('Modal de Demissão em breve!')} />
             </div>
-            {/* 5. Renderiza o modal */}
-            <ApprovalModal 
-                recruta={selectedRecruta} 
-                onClose={() => setSelectedRecruta(null)} 
-                onConfirm={handleConfirmApproval} 
-            />
+
+            {user.permissoes.setador && (
+                <div className="admin-table-widget">
+                    <div className="widget-title">Recrutas em Análise</div>
+                    <div className="table-responsive">
+                        {/* Cole o JSX da sua tabela de recrutas original aqui */}
+                    </div>
+                </div>
+            )}
+            
+            <ApprovalModal recruta={selectedRecruta} onClose={() => setSelectedRecruta(null)} onConfirm={handleConfirmApproval} />
         </div>
     );
 };
+
 export default AdminPage;

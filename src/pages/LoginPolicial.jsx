@@ -79,7 +79,7 @@ const LoginPolicial = () => {
 
         {/* Corrigindo a rota para o registro policial */}
         <p className="auth-redirect-link">
-          Não tem uma conta? <Link to="/registroPolicial">Crie uma aqui</Link>
+          Não tem uma conta? <Link to="/policia/register">Crie uma aqui</Link>
         </p>
       </form>
     </AuthLayout>

@@ -19,7 +19,7 @@ function Header() {
                 <Link to="/" className="logo-container">
                     <img src="/brasao.png" alt="Brasão da Polícia" className="logo" />
                     <div className="logo-text">
-                        <span>Polícia RP</span>
+                        <span>Secretaria Policia</span>
                         <small>Portal Oficial</small>
                     </div>
                 </Link>

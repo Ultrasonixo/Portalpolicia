@@ -1,16 +1,20 @@
+// src/main.jsx - VERSÃO CORRETA
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom'; // Importe o BrowserRouter
+import { AuthProvider } from './context/AuthContext';
 import App from './App.jsx';
-import { AuthProvider } from './context/AuthContext.jsx'; // 1. Importe o AuthProvider
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    {/* O Roteador ÚNICO envolve tudo */}
     <BrowserRouter>
-      <AuthProvider> {/* 2. Envolva o App com ele */}
+      {/* O Provedor de Autenticação envolve o App */}
+      <AuthProvider>
         <App />
       </AuthProvider>
     </BrowserRouter>
-  </React.StrictMode>,
+  </React.StrictMode>
 );

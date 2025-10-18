@@ -1,4 +1,4 @@
-/* src/components/ConsultaBoletins.css */
+/* src/components/ConsultaBoletins.css - VERSÃO COMPLETA E CORRIGIDA */
 
 .boletins-table-widget {
     background-color: #fff;
@@ -44,12 +44,16 @@
     background-color: #f8fafc;
 }
 
+/* === ESTILOS DOS STATUS BADGES === */
 .status-badge {
     padding: 4px 10px;
     border-radius: 20px;
     font-size: 0.75rem;
     font-weight: bold;
     color: white;
+    text-align: center;
+    display: inline-block;
+    min-width: 100px; /* Garante um tamanho mínimo */
 }
 
 .status-aguardando-análise {
@@ -57,9 +61,27 @@
     color: #333;
 }
 
-.status-encerrado {
-    background-color: #198754;
+.status-em-investigação {
+    background-color: #0dcaf0; /* Ciano */
+    color: #fff;
 }
+
+.status-resolvido {
+    background-color: #198754; /* Verde */
+    color: #fff;
+}
+
+.status-arquivado {
+    background-color: #6c757d; /* Cinza */
+    color: #fff;
+}
+
+.status-falso {
+    background-color: #dc3545; /* Vermelho */
+    color: #fff;
+}
+
+/* === FIM DOS ESTILOS DE STATUS === */
 
 .actions-cell {
     display: flex;
@@ -87,4 +109,34 @@
     color: #dc3545;
     text-align: center;
     font-weight: 500;
+}
+
+/* Estilos da Barra de Busca */
+.search-container {
+    position: relative;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+.search-input {
+    width: 100%;
+    padding: 12px 20px 12px 40px;
+    border-radius: 25px;
+    border: 1px solid #e2e8f0;
+    font-size: 1rem;
+    background-color: #f8fafc;
+    transition: all 0.2s ease-in-out;
+}
+.search-input:focus {
+    outline: none;
+    border-color: #0d6efd;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+}
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
 }
