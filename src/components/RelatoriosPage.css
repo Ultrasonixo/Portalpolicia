@@ -1,0 +1,86 @@
+/* src/components/RelatoriosPage.css */
+
+.relatorios-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.relatorio-categoria {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid #e2e8f0;
+    padding: 25px;
+}
+
+.categoria-titulo {
+    font-size: 1.5rem;
+    color: #1e293b;
+    margin-top: 0;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f1f5f9;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.categoria-titulo i {
+    color: var(--card-color, #1e293b); /* Cor do ícone */
+}
+
+/* Reutiliza o grid do dashboard, mas pode ser ajustado */
+.relatorios-grid {
+    display: grid;
+    /* Cria colunas responsivas, 4 ou 5 por linha em telas grandes */
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.report-stat-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #f8fafc; /* Fundo leve do card */
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 5px solid var(--card-color, #1e293b); /* Borda colorida */
+}
+
+.report-stat-icon {
+    font-size: 1.8rem;
+    color: var(--card-color, #1e293b);
+    flex-shrink: 0;
+}
+
+.report-stat-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.report-stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.1;
+}
+
+.report-stat-title {
+    font-size: 0.9rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* Estilo para futuros links de detalhes */
+.relatorio-categoria a {
+    display: inline-block;
+    margin-top: 20px;
+    font-weight: 600;
+    color: #0d6efd;
+    text-decoration: none;
+}
+.relatorio-categoria a:hover {
+    text-decoration: underline;
+}

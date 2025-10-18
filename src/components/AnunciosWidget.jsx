@@ -42,6 +42,7 @@ const AnunciosWidget = () => {
                             <span>Publicado por: <strong>{anuncio.autor_nome || 'Sistema'}</strong></span>
                             <span>Em: {formatDate(anuncio.data_publicacao)}</span>
                         </div>
+                        
                     </div>
                 ))}
             </div>

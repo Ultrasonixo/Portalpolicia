@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext.jsx'; // Caminho corrigido
-import AuthLayout from '../components/auth/AuthLayout.jsx'; // Adicionado .jsx
-import InputField from '../components/auth/InputField.jsx'; // Adicionado .jsx
+import { useAuth } from '../context/AuthContext.jsx';
+import AuthLayout from '../components/auth/AuthLayout.jsx';
+import InputField from '../components/auth/InputField.jsx';
 
 const LoginPolicial = () => {
   const { login } = useAuth();
@@ -12,7 +12,6 @@ const LoginPolicial = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Lê a página que o usuário tentou acessar (útil para o dashboard)
   const from = location.state?.from?.pathname || "/policia/dashboard";
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -35,14 +34,28 @@ const LoginPolicial = () => {
         throw new Error(data.message || 'Erro na autenticação.');
       }
 
-      // A CORREÇÃO PRINCIPAL: Informamos ao contexto que o tipo é 'policial'
+      // <<< --- MODIFICAÇÃO: Salvar o Token --- >>>
+      if (data.token) {
+        // Use a chave 'authToken' (ou outra de sua preferência)
+        localStorage.setItem('authToken', data.token);
+        console.log("Token salvo no localStorage:", data.token); // Para depuração
+      } else {
+         console.error("Token não recebido do backend na resposta de login.");
+         throw new Error('Falha no login: Token não recebido.');
+      }
+      // <<< --- FIM DA MODIFICAÇÃO --- >>>
+
+
+      // Passa os dados do policial E o tipo para o AuthContext
       login(data.policial, 'policial');
-      
-      // Redireciona para o dashboard ou para a página que ele tentou acessar
+
       navigate(from, { replace: true });
 
     } catch (err) {
+      console.error("Erro no login:", err); // Log mais detalhado
       setError(err.message);
+       // Limpa o token se o login falhar após salvar (caso raro)
+       localStorage.removeItem('authToken');
     } finally {
       setLoading(false);
     }
@@ -70,14 +83,13 @@ const LoginPolicial = () => {
           onChange={handleChange}
           placeholder="Digite sua senha"
         />
-        
+
         {error && <p className="error-message">{error}</p>}
 
         <button type="submit" className="auth-button" disabled={loading}>
           {loading ? 'Verificando...' : 'Continuar'}
         </button>
 
-        {/* Corrigindo a rota para o registro policial */}
         <p className="auth-redirect-link">
           Não tem uma conta? <Link to="/policia/register">Crie uma aqui</Link>
         </p>

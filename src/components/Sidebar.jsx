@@ -13,6 +13,7 @@ const Sidebar = () => {
                 <NavLink to="/policia/dashboard"><i className="fas fa-tachometer-alt"></i> Dashboard</NavLink>
                 <NavLink to="/policia/boletins"><i className="fas fa-file-alt"></i> Boletins</NavLink>
                 <NavLink to="/policia/policiais"><i className="fas fa-users"></i> Policiais</NavLink>
+                <NavLink to="/policia/relatorios"><i className="fas fa-chart-pie"></i> Relatórios</NavLink>
                 {user && <NavLink to={`/policia/perfil/${user.id}`}><i className="fas fa-user-circle"></i> Meu Perfil</NavLink>}
                 {/* O LINK SÓ APARECE SE O USUÁRIO FOR DO RH */}
                 {user?.permissoes?.is_rh && (

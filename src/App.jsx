@@ -25,6 +25,8 @@ import ConsultaBoletinsPage from './pages/ConsultaBoletinsPage.jsx';
 import BoletimDetailPage from './pages/BoletimDetailPage';
 import PoliceProfilePage from './pages/PoliceProfilePage';
 import ListaPoliciaisPage from './pages/ListaPoliciaisPage';
+import LogsPage from './pages/LogsPage';
+import RelatoriosPage from './pages/RelatoriosPage.jsx';
 
 import './App.css';
 
@@ -33,7 +35,7 @@ function App() {
     // ✅ 1. ADICIONADO UM FRAGMENTO <>...</> PARA ENVOLVER TUDO
     <>
       {/* O AntiDevTools agora fica aqui fora, mas será renderizado em todas as páginas */}
-      <AntiDevTools />
+      
 
       <Routes>
         {/* GRUPO 1: ROTAS DE AUTENTICAÇÃO POLICIAL (TELA CHEIA) */}
@@ -56,10 +58,10 @@ function App() {
           <Route index element={<Navigate to="dashboard" />} />
           <Route path="dashboard" element={<PoliceDashboard />} />
           <Route path="admin" element={<AdminPage />} />
-          
-          {/* ✅ 2. CORRIGIDO PARA USAR CAMINHO RELATIVO E REMOVIDA A DUPLICATA */}
           <Route path="policiais" element={<ListaPoliciaisPage />} />
           <Route path="boletins" element={<ConsultaBoletinsPage />} />
+          <Route path="logs" element={<LogsPage />} />
+          <Route path="relatorios" element={<RelatoriosPage />} />
           <Route path="boletim/:id" element={<BoletimDetailPage />} />
           <Route path="perfil/:id" element={<PoliceProfilePage />} />
         </Route>

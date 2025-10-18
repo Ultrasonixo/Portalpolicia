@@ -1,0 +1,215 @@
+/* src/components/LogsPage.css */
+
+.logs-table-widget {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    overflow: hidden; /* Garante que bordas arredondadas funcionem */
+    margin-top: 20px;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto; /* Adiciona scroll horizontal se necessário */
+}
+
+.logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem; /* Tamanho de fonte base para a tabela */
+}
+
+.logs-table th,
+.logs-table td {
+    padding: 12px 15px; /* Espaçamento interno das células */
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0; /* Linha divisória */
+    vertical-align: top; /* Alinha conteúdo no topo */
+}
+
+.logs-table thead {
+    background-color: #f8fafc; /* Fundo levemente cinza para cabeçalho */
+}
+
+.logs-table th {
+    color: #64748b; /* Cor do texto do cabeçalho */
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    white-space: nowrap; /* Evita quebra de linha nos títulos */
+}
+
+.logs-table tbody tr:last-child td {
+    border-bottom: none; /* Remove borda da última linha */
+}
+
+.logs-table tbody tr:hover {
+    background-color: #f8fafc; /* Fundo ao passar o mouse */
+}
+
+/* Estilo para a coluna de detalhes */
+.log-details pre {
+    font-size: 0.85em; /* Fonte menor para JSON */
+    background-color: #f1f5f9; /* Fundo levemente diferente */
+    padding: 8px;
+    border-radius: 4px;
+    max-height: 150px; /* Limita altura e adiciona scroll se necessário */
+    overflow-y: auto;
+    margin: 0; /* Remove margem padrão do <pre> */
+    white-space: pre-wrap; /* Garante quebra de linha */
+    word-break: break-all; /* Quebra palavras longas */
+}
+
+/* Estilos da Paginação */
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-top: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+}
+
+.pagination-controls button {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+    background-color: #0b5ed7;
+}
+
+.pagination-controls button:disabled {
+    background-color: #adb5bd;
+    cursor: not-allowed;
+}
+
+.pagination-controls span {
+    font-size: 0.9rem;
+    color: #495057;
+    font-weight: 500;
+}
+
+/* Mensagem de erro reutilizada */
+.error-message {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}/* src/components/LogsPage.css */
+
+.logs-table-widget {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    overflow: hidden; /* Garante que bordas arredondadas funcionem */
+    margin-top: 20px;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto; /* Adiciona scroll horizontal se necessário */
+}
+
+.logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem; /* Tamanho de fonte base para a tabela */
+}
+
+.logs-table th,
+.logs-table td {
+    padding: 12px 15px; /* Espaçamento interno das células */
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0; /* Linha divisória */
+    vertical-align: top; /* Alinha conteúdo no topo */
+}
+
+.logs-table thead {
+    background-color: #f8fafc; /* Fundo levemente cinza para cabeçalho */
+}
+
+.logs-table th {
+    color: #64748b; /* Cor do texto do cabeçalho */
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    white-space: nowrap; /* Evita quebra de linha nos títulos */
+}
+
+.logs-table tbody tr:last-child td {
+    border-bottom: none; /* Remove borda da última linha */
+}
+
+.logs-table tbody tr:hover {
+    background-color: #f8fafc; /* Fundo ao passar o mouse */
+}
+
+/* Estilo para a coluna de detalhes */
+.log-details pre {
+    font-size: 0.85em; /* Fonte menor para JSON */
+    background-color: #f1f5f9; /* Fundo levemente diferente */
+    padding: 8px;
+    border-radius: 4px;
+    max-height: 150px; /* Limita altura e adiciona scroll se necessário */
+    overflow-y: auto;
+    margin: 0; /* Remove margem padrão do <pre> */
+    white-space: pre-wrap; /* Garante quebra de linha */
+    word-break: break-all; /* Quebra palavras longas */
+}
+
+/* Estilos da Paginação */
+.pagination-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-top: 1px solid #e2e8f0;
+    background-color: #f8fafc;
+}
+
+.pagination-controls button {
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.pagination-controls button:hover:not(:disabled) {
+    background-color: #0b5ed7;
+}
+
+.pagination-controls button:disabled {
+    background-color: #adb5bd;
+    cursor: not-allowed;
+}
+
+.pagination-controls span {
+    font-size: 0.9rem;
+    color: #495057;
+    font-weight: 500;
+}
+
+/* Mensagem de erro reutilizada */
+.error-message {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c2c7;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
